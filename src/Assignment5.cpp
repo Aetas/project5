@@ -51,40 +51,70 @@ int main(int argc, char* argv[])
 	in_file.close();
 
 	int select = -1;
+	MovieNode* temp;
 	while (select != 4)
 	{
 		string title;
-		cout << "======Main Menu======" << endl
-			<< "1. Find a Movie" << endl
-			<< "2. Rent a Movie" << endl
-			<< "3. Print Inventory" << endl
-			<< "4. Quit" << endl
-			<< "======================" << endl;
+		cout << "======Main Menu=====" << endl
+			<< "1. Find a movie" << endl
+			<< "2. Rent a movie" << endl
+			<< "3. Print the inventory" << endl
+			<< "4. Quit" << endl;
 		cin >> select;
 		switch (select)
 		{
-		case 1:
-			cout << "Movie title: ";
+		case 1:	//find a movie
+			cout << "Enter title:";
 			cin >> title;
-			database->search(title);
+			temp = database->search(title);
+			if (temp == NULL)
+			{
+				cout << "Movie not found." << endl;
+				break;
+			}
+			cout << "Movie Info:" << endl
+				<< "===========" << endl
+				<< "Ranking:" << temp->ranking << endl
+				<< "Title:" << temp->title << endl
+				<< "Year:" << temp->year << endl
+				<< "Quantity:" << temp->quantity << endl;
 			break;
-		case 2:
-			cout << "Movie title: ";
+		case 2:	//rent a movie
+			cout << "Enter title:";
 			cin >> title;
-			database->rentMovie(title);
+			temp = database->search(title);
+			if (temp == NULL)
+			{
+				cout << "Movie not found." << endl;
+				break;
+			}
+			if (temp->quantity == 0)
+			{
+				cout << "Movie out of stock." << endl;
+				break;
+			}
+			//database->rentMovie(title);
+			temp->quantity--;
+			cout << "Movie has been rented." << endl
+				<< "Movie Info:" << endl
+				<< "===========" << endl
+				<< "Ranking:" << temp->ranking << endl
+				<< "Title:" << temp->title << endl
+				<< "Year:" << temp->year << endl
+				<< "Quantity:" << temp->quantity << endl;
 			break;
-		case 3:
+		case 3:	//print inventory
 			database->inorder_walk();
 			break;
-		default:
+		case 4:
+			cout << "Goodbye!" << endl;
+			break;
+		default://not an option
 			cout << "That was not an option" << endl;
 			break;
 		}
 	}
 
-
-
-
-
+	delete database;
 	return 0;
 }
