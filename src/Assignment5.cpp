@@ -22,8 +22,15 @@ int main(int argc, char* argv[])
 {
 	MovieTree* database = new MovieTree();
 	std::ifstream in_file;
-	if(argc >= 1)
+	if (argc > 0)
 		in_file.open(argv[1]);
+	else
+	{
+		string file;
+		cout << "Enter file name\n<filename.txt>: ";
+		cin >> file;
+		in_file.open(file.c_str());
+	}
 
 	if (in_file.is_open())
 	{
@@ -64,26 +71,28 @@ int main(int argc, char* argv[])
 		switch (select)
 		{
 		case 1:	//find a movie
-			cout << "Enter title:";
-			cin >> title;
+			cout << "Enter title:" << endl;
+			cin.ignore(1000, '\n');
+			getline(cin, title);
 			temp = database->search(title);
-			if (temp == NULL)
-			{
+			if (temp == NULL || temp == nullptr)
 				cout << "Movie not found." << endl;
-				break;
+			else
+			{
+				cout << "Movie Info:" << endl
+					<< "===========" << endl
+					<< "Ranking:" << temp->ranking << endl
+					<< "Title:" << temp->title << endl
+					<< "Year:" << temp->year << endl
+					<< "Quantity:" << temp->quantity << endl;
 			}
-			cout << "Movie Info:" << endl
-				<< "===========" << endl
-				<< "Ranking:" << temp->ranking << endl
-				<< "Title:" << temp->title << endl
-				<< "Year:" << temp->year << endl
-				<< "Quantity:" << temp->quantity << endl;
 			break;
 		case 2:	//rent a movie
-			cout << "Enter title:";
-			cin >> title;
+			cout << "Enter title:" << endl;
+			cin.ignore(1000, '\n');
+			getline(cin, title);
 			temp = database->search(title);
-			if (temp == NULL)
+			if (temp == NULL || temp == nullptr)
 			{
 				cout << "Movie not found." << endl;
 				break;
@@ -114,7 +123,7 @@ int main(int argc, char* argv[])
 			break;
 		}
 	}
-	if (temp != nullptr)
+	if (temp != nullptr || temp != NULL)
 		delete temp;
 	delete database;
 	return 0;

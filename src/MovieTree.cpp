@@ -8,7 +8,7 @@
 
 std::ostream& operator<<(std::ostream& os, MovieNode* n)
 {
-	os << "Movie:" << n->title << std::endl;
+	os << "Movie: " << n->title << std::endl;
 	return os;
 }
 
