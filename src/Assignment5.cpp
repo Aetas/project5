@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
 	MovieNode* temp = nullptr;
 	while (select != 4)
 	{
-		string title;
+		string title = "";
 		cout << "======Main Menu=====" << endl
 			<< "1. Find a movie" << endl
 			<< "2. Rent a movie" << endl

@@ -36,7 +36,7 @@ public:
 	void insert(MovieNode*, MovieNode*);	//adds a new node to a specified sub tree
 
 	void inorder_walk();					//external call to root
-	MovieNode* search(std::string&);				//finds node with the passed key
+	MovieNode* search(std::string&);		//finds node with the passed key
 	MovieNode* iterative_search(std::string&);	//while version of search, non-recursive
 	MovieNode* minimum();					//find min (up for debate wether or not these should be private)
 	MovieNode* maximum();					//find max (^*************************************************^)
@@ -45,7 +45,7 @@ private:
 	MovieNode *root;
 
 	void inorder_walk(MovieNode*);			//internal reccursive call
-	MovieNode* search(MovieNode*, std::string&);	//recursive, and sub-tree version of search 
+	MovieNode* search(MovieNode*, std::string&);//recursive, and sub-tree version of search 
 	MovieNode* minimum(MovieNode*);			//find min of specified sub-tree
 	MovieNode* maximum(MovieNode*);			//find max of specified sub-node
 	MovieNode* successor(MovieNode*);		//next incriment
