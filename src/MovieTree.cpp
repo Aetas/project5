@@ -27,7 +27,7 @@ MovieNode::MovieNode()
 	right = nullptr;
 }
 //proper argument construct
-MovieNode::MovieNode(int rating, std::string ttl, int yr, int qtty)
+MovieNode::MovieNode(int& rating, std::string& ttl, int& yr, int& qtty)
 {
 	parent = nullptr;
 	title = ttl;
@@ -65,14 +65,14 @@ MovieTree::~MovieTree()
 }
 
 //used to pass raw data from main() into the MovieTree's domain, eliminating creation of objects in main. Keeps it tidy (to me)
-void MovieTree::addRawNode(int rank, std::string ttl, int yr, int qtty)
+void MovieTree::addRawNode(int& rank, std::string& ttl, int& yr, int& qtty)
 {
 	MovieNode* n = new MovieNode(rank, ttl, yr, qtty);	//creates real ndoe
 	insert(n);	//finds the position it belongs in
 }
 
 //search for a movie by title (external)
-MovieNode* MovieTree::search(std::string ttl)
+MovieNode* MovieTree::search(std::string& ttl)
 {
 	MovieNode* n = root;	//start at root, this is the external call
 	if (n == nullptr || n->title == ttl)	//basically, if the tree does not exist
@@ -84,7 +84,7 @@ MovieNode* MovieTree::search(std::string ttl)
 }
 
 //same as above but internal
-MovieNode* MovieTree::search(MovieNode* n, std::string ttl)
+MovieNode* MovieTree::search(MovieNode* n, std::string& ttl)
 {
 	if (n == nullptr || n->title == ttl)
 		return n;
@@ -95,7 +95,7 @@ MovieNode* MovieTree::search(MovieNode* n, std::string ttl)
 }
 
 //a function a wrote for fun as prompted by the book. "This method is faster on most modern computers"
-MovieNode* MovieTree::iterative_search(std::string ttl)
+MovieNode* MovieTree::iterative_search(std::string& ttl)
 {
 	MovieNode* n = root;
 	while (n != nullptr && ttl != n->title)	//instead of recursion calls, just while() it until it is found

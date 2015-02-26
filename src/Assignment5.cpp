@@ -20,7 +20,7 @@ using std::string;
 
 int main(int argc, char* argv[])
 {
-	MovieTree* database = new MovieTree;
+	MovieTree* database = new MovieTree();
 	std::ifstream in_file;
 	if(argc >= 1)
 		in_file.open(argv[1]);
@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 	in_file.close();
 
 	int select = -1;
-	MovieNode* temp;
+	MovieNode* temp = nullptr;
 	while (select != 4)
 	{
 		string title;
@@ -114,7 +114,8 @@ int main(int argc, char* argv[])
 			break;
 		}
 	}
-
+	if (temp != nullptr)
+		delete temp;
 	delete database;
 	return 0;
 }
